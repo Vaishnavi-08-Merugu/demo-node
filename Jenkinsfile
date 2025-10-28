@@ -19,10 +19,10 @@ pipeline {
         stage('Install dependencies') {
       steps {
         // If using NodeJS plugin: wrap with 'nodejs' or use nvm/docker
-        sh 'node --version || true'
-        sh 'npm --version || true'
+        bat 'node --version || true'
+        bat 'npm --version || true'
         // install dependencies
-        sh 'npm ci'            // preferred for CI (locks with package-lock.json)
+        bat 'npm ci'            // preferred for CI (locks with package-lock.json)
       }
     }
 
