@@ -16,6 +16,16 @@ pipeline {
                 // use sh 'npm install' if using Linux
             }
         }
+        stage('Install dependencies') {
+      steps {
+        // If using NodeJS plugin: wrap with 'nodejs' or use nvm/docker
+        sh 'node --version || true'
+        sh 'npm --version || true'
+        // install dependencies
+        sh 'npm ci'            // preferred for CI (locks with package-lock.json)
+      }
+    }
+
 
         stage('Build and Test') {
             steps {
