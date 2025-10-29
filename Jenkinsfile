@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Install Dependencies') {
             steps {
-                echo 'Installing npm dependencies...'
+                echo 'Installing npm dependencies'
                 bat 'npm install'      
             }
         }
@@ -38,10 +38,10 @@ pipeline {
 
     post {
         success {
-            echo 'Build completed successfully!'
+            echo 'Build completed'
         }
         failure {
-            echo 'Build failed! Please check logs.'
+            echo 'Build failed'
         }
     }
 }
