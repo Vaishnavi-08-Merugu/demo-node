@@ -1,32 +1,24 @@
 pipeline {
     agent any
-
     stages {
         stage('Checkout Code') {
             steps {
-                // Pull code from GitHub automatically
                 checkout scm
             }
         }
-
         stage('Install Dependencies') {
             steps {
                 echo 'Installing npm dependencies...'
-                bat 'npm install'      // for Windows Jenkins agent
-                // use sh 'npm install' if using Linux
+                bat 'npm install'      
             }
         }
         stage('Install dependencies') {
       steps {
-        // If using NodeJS plugin: wrap with 'nodejs' or use nvm/docker
         bat 'node --version || true'
         bat 'npm --version || true'
-        // install dependencies
-        bat 'npm ci'            // preferred for CI (locks with package-lock.json)
+        bat 'npm ci'           
       }
     }
-
-
         stage('Build and Test') {
             steps {
                 echo 'Building and testing the project...'
@@ -38,7 +30,6 @@ pipeline {
         stage('Archive Artifact') {
             steps {
                 echo 'Archiving build output...'
-                // Create a zip file of the project
                 bat 'tar -a -c -f build-artifact.zip index.js package.json'
                 archiveArtifacts artifacts: 'build-artifact.zip', fingerprint: true
             }
@@ -47,10 +38,10 @@ pipeline {
 
     post {
         success {
-            echo '✅ Build completed successfully!'
+            echo 'Build completed successfully!'
         }
         failure {
-            echo '❌ Build failed! Please check logs.'
+            echo 'Build failed! Please check logs.'
         }
     }
 }
